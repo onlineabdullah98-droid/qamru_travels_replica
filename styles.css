@@ -1,0 +1,209 @@
+
+:root{--navy:#16357C;--navy-deep:#0E1E4A;--ink:#141C2E;--gold:#F2A93B;--sky:#EEF3FB;--cloud:#FBFBFC;
+  --surface:#FFF;--line:#E7E9EF;--muted:#6A7385;--trust:#1B7A4A;
+  --sh-sm:0 1px 2px rgba(20,28,46,.05),0 6px 16px rgba(20,28,46,.05);--sh-md:0 3px 8px rgba(20,28,46,.08),0 20px 44px rgba(20,28,46,.12);
+  --serif:'Fraunces',Georgia,serif;--sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cloud);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none} button{font-family:var(--sans);cursor:pointer}
+.qf-wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+.qf-eyebrow{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.qf-topbar{background:var(--navy-deep);color:#CBD9F3}
+.qf-topbar .qf-wrap{display:flex;align-items:center;justify-content:space-between;height:38px;font-size:12.5px}
+.qf-tl{display:flex;align-items:center;gap:8px;font-weight:600} .qf-tl svg{color:var(--gold);flex:none}
+.qf-tr{display:flex;align-items:center;gap:18px;font-weight:600} .qf-tr a:hover{color:#fff}
+.qf-ccy{display:inline-flex;align-items:center;gap:4px;color:inherit}
+.qf-ccy>svg{opacity:.8;flex:none}
+.qf-ccy select{background:rgba(255,255,255,.14);color:inherit;border:1px solid currentColor;border-radius:7px;font-size:12px;font-weight:700;padding:3px 6px;cursor:pointer;font-family:inherit;-webkit-appearance:none;-moz-appearance:none;appearance:none}
+.qf-ccy select option{color:#111}
+/* The currency pill sits on the DARK topbar — match the adjacent country + city pills: white text/icon, a
+   subtle border. This overrides currencyUI's color:inherit (= the pale #CBD9F3 topbar text, too low-contrast
+   on the collapsed PKR value — founder 2026-10-06). Scoped to .qf-topbar so the cart (.ck-top) and trade-room
+   (.tr-dealrow) currency switchers, which sit on LIGHT surfaces, keep color:inherit and stay readable there. */
+.qf-topbar .qf-ccy{color:#fff}
+.qf-topbar .qf-ccy select{border-color:rgba(255,255,255,.4)}
+/* Opening-sale strip (founder 2026-10-06): a full-width flashy band — festive berry→orange→gold gradient with
+   a moving shimmer sweep. Headline/eyebrow sit on the darker (left) end for white-text contrast; the CTA is a
+   white pill on the gold end. Shimmer + sparkle respect prefers-reduced-motion. */
+/* NOTE: the banner is .qf-salebar (NOT .qf-sale) — .qf-sale is already the discounted-PRICE span on product
+   cards; reusing it here painted every sale price with this gradient (founder 2026-10-07 "new prices not visible"). */
+.qf-salebar{display:block;text-decoration:none;color:#fff;position:relative;overflow:hidden;background:linear-gradient(100deg,#6E1250 0%,#C2185B 30%,#E8542E 64%,#F4A838 100%)}
+.qf-sale-in{position:relative;z-index:2;display:flex;align-items:center;gap:12px 18px;min-height:62px;padding:11px 22px;flex-wrap:wrap;color:#fff}
+.qf-sale-eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);padding:5px 12px;border-radius:999px;white-space:nowrap}
+.qf-sale-eyebrow svg{color:#FFE7A3;animation:qf-spark 2.3s ease-in-out infinite}
+.qf-sale-head{display:flex;align-items:baseline;gap:4px 12px;flex-wrap:wrap;min-width:0}
+.qf-sale-pct{font-family:var(--serif);font-weight:700;font-size:30px;line-height:1;letter-spacing:-.01em;text-shadow:0 2px 12px rgba(80,0,40,.35)}
+.qf-sale-note{font-size:14.5px;font-weight:600;opacity:.96}
+.qf-sale-cta{margin-left:auto;display:inline-flex;align-items:center;gap:7px;background:#fff;color:#B4186B;font-weight:800;font-size:14px;padding:9px 18px;border-radius:999px;box-shadow:0 5px 16px rgba(60,0,30,.22);white-space:nowrap;transition:transform .15s ease,box-shadow .15s ease}
+.qf-salebar:hover .qf-sale-cta{transform:translateY(-1px);box-shadow:0 8px 22px rgba(60,0,30,.3)}
+.qf-sale-cta svg{color:#E8542E}
+.qf-sale-shine{position:absolute;top:0;bottom:0;left:-30%;width:28%;z-index:1;background:linear-gradient(100deg,transparent,rgba(255,255,255,.42),transparent);transform:skewX(-20deg);animation:qf-shine 4.5s ease-in-out infinite;pointer-events:none}
+@keyframes qf-shine{0%{left:-30%}60%,100%{left:125%}}
+@keyframes qf-spark{0%,100%{transform:scale(1) rotate(0);opacity:.8}50%{transform:scale(1.3) rotate(18deg);opacity:1}}
+@media(min-width:820px){.qf-sale-pct{font-size:34px}.qf-sale-in{min-height:66px}}
+@media(max-width:560px){.qf-sale-pct{font-size:25px}.qf-sale-cta{margin-left:0;width:100%;justify-content:center}.qf-sale-note{font-size:13px}}
+@media(prefers-reduced-motion:reduce){.qf-sale-shine{display:none}.qf-sale-eyebrow svg{animation:none}}
+.qf-tcart{display:inline-flex;align-items:center;gap:5px}
+.qf-logorow{background:var(--surface);border-bottom:1px solid var(--line)}
+.qf-logorow .qf-wrap{display:flex;align-items:center;gap:24px;height:80px}
+.qf-logo{display:flex;align-items:center;gap:11px} .qf-mark{width:34px;height:34px;flex:none}
+.qf-word b{font-family:var(--serif);font-weight:600;font-size:26px;letter-spacing:.02em;color:var(--ink);display:block;line-height:1}
+.qf-word span{font-size:9px;font-weight:700;letter-spacing:.32em;color:var(--muted);text-transform:uppercase}
+.qf-search{margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--cloud);border:1px solid var(--line);border-radius:10px;padding:0 14px 0 12px;min-width:430px;color:var(--muted);transition:border-color .14s,box-shadow .14s,background .14s}
+.qf-search:focus-within{background:var(--surface);border-color:color-mix(in srgb,var(--navy) 42%,transparent);box-shadow:0 0 0 3px color-mix(in srgb,var(--navy) 12%,transparent)}
+.qf-search svg{flex:none} .qf-search input{border:none;background:transparent;padding:12px 0;font-size:14px;width:100%;color:var(--ink);outline:none;font-family:inherit}
+.qf-catpick{position:relative;display:flex;align-items:center;flex:none}
+.qf-catpick select{appearance:none;-webkit-appearance:none;-moz-appearance:none;border:none;background:transparent;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--navy);padding:12px 21px 12px 2px;max-width:158px;cursor:pointer;outline:none;white-space:nowrap;text-overflow:ellipsis}
+.qf-catpick .qf-chev{position:absolute;right:3px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--muted)}
+.qf-catpick:hover select,.qf-catpick:hover .qf-chev{color:var(--ink)}
+.qf-sdiv{width:1px;height:22px;background:var(--line);flex:none}
+.qf-actions{display:flex;align-items:center;gap:10px}
+.qf-acct{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 18px;border-radius:12px;background:var(--navy);color:#fff;font-weight:700;font-size:14px;white-space:nowrap}
+.qf-acct:hover{background:var(--navy-deep)} .qf-acct svg{flex:none}
+/* "Offer your services" — a gold CTA pill beside Sign in on /services → signup → become-a-vendor (founder 2026-09-22) */
+.qf-offer{display:inline-flex;align-items:center;gap:7px;height:44px;padding:0 16px;border-radius:12px;background:var(--gold);color:#17294C;font-weight:800;font-size:13.5px;line-height:1.1;white-space:nowrap;box-shadow:0 2px 10px rgba(242,169,59,.4)}
+.qf-offer:hover{background:#F4B657} .qf-offer svg{flex:none;color:#17294C}
+/* Mobile app: let "Offer your services" WRAP so the whole label shows (founder 2026-09-22) and both the
+   pill and Sign in still fit the row. */
+@media(max-width:640px){.qf-offer{white-space:normal;height:auto;min-height:44px;padding:7px 12px;font-size:11.5px;max-width:118px}}
+.qf-icobtn{position:relative;display:grid;place-items:center;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);color:var(--ink)}
+.qf-icobtn:hover{border-color:color-mix(in srgb,var(--navy) 30%,transparent);color:var(--navy)}
+.qf-dot{position:absolute;top:-5px;right:-5px;background:var(--gold);color:#20160A;font-size:10px;font-weight:800;min-width:18px;height:18px;padding:0 4px;border-radius:9px;display:grid;place-items:center}
+/* Marketplace pills bar (Expat + Qamru Services + Cart) — its own sticky strip right under the search,
+   a little higher than the category chips (founder 2026-09-22). Pills left, cart pinned right. */
+.qf-pillnav{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;box-shadow:0 1px 0 rgba(20,28,46,.02)}
+.qf-pillnav .qf-wrap{display:flex;align-items:center;gap:10px;height:56px}
+.qf-pillnav .qf-bulk{padding:9px 17px;font-size:13.5px}
+.qf-pillnav .qf-navcart{margin-left:auto}
+/* Category chips bar — moved DOWN next to the Tell-us band, its own light strip (founder 2026-09-22) */
+.qf-chipnav{background:var(--surface);border-bottom:1px solid var(--line)}
+.qf-chipnav .qf-wrap{display:flex;align-items:center;gap:11px;height:50px}
+.qf-chiplbl{flex:none;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+@media(max-width:560px){.qf-chiplbl{display:none}}
+.qf-catscroll{display:flex;align-items:center;gap:4px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none}
+.qf-catscroll::-webkit-scrollbar{height:0}
+.qf-catscroll a{padding:9px 13px;font-size:13.5px;font-weight:600;color:var(--ink);border-radius:8px;white-space:nowrap}
+.qf-catscroll a:hover,.qf-catscroll a.on{background:var(--sky);color:var(--navy)}
+/* Category chips — uniform LIGHT GOLD pills (founder 2026-09-19); the active category fills solid gold */
+.qf-chip{padding:8px 15px;font-size:13.5px;font-weight:700;color:#6B4E19;background:#FBEFD1;border:1px solid #F1DFB0;border-radius:20px;white-space:nowrap;transition:background .13s,transform .1s}
+.qf-chip:hover{background:#F6E4B8;transform:translateY(-1px)}
+.qf-chip.on{background:var(--gold);color:#20160A;border-color:#E79A2A}
+/* Promo banner carousel — the horizontal-scroll row that replaces the old single hero */
+.qf-banners{display:flex;gap:16px;overflow-x:auto;margin:26px -22px 6px;padding:0 22px 6px;scroll-snap-type:x mandatory;scrollbar-width:none}
+.qf-banners::-webkit-scrollbar{height:0}
+.qf-bnl{position:relative;flex:0 0 302px;scroll-snap-align:start;border-radius:20px;padding:20px 20px 18px;display:flex;flex-direction:column;min-height:302px;overflow:hidden;transition:transform .16s,box-shadow .24s;box-shadow:0 14px 32px -8px var(--glow,rgba(20,28,46,.42)),0 3px 8px rgba(15,20,35,.18),inset 0 0 0 1px rgba(255,255,255,.18),inset 0 1px 0 rgba(255,255,255,.32)}
+.qf-bnl::before{content:"";position:absolute;inset:0;background:radial-gradient(125% 75% at 12% -8%,rgba(255,255,255,.30),rgba(255,255,255,0) 56%);pointer-events:none}
+.qf-bnl>*{position:relative;z-index:1}
+.qf-bnl:hover{transform:translateY(-5px);box-shadow:0 24px 50px -8px var(--glow,rgba(20,28,46,.55)),0 4px 10px rgba(15,20,35,.2),inset 0 0 0 1px rgba(255,255,255,.34),inset 0 1px 0 rgba(255,255,255,.46)}
+.qf-bnl-head h3{font-family:var(--serif);font-weight:600;font-size:23px;line-height:1.05;color:inherit;margin:0}
+.qf-bnl-head small{display:block;font-size:12.5px;opacity:.85;margin-top:4px;font-weight:600}
+.qf-bnl-grid{margin:16px 0 auto;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.qf-bnl-cell{position:relative;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.qf-bnl-cell::before{content:"";display:block;padding-top:100%}
+.qf-bnl-cell img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box}
+.qf-bnl-cta{margin-top:14px;align-self:flex-start;display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:800;color:inherit;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);padding:8px 14px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.12);transition:background .15s}
+.qf-bnl:hover .qf-bnl-cta{background:rgba(255,255,255,.3)}
+.qf-bnl-cta svg{transition:transform .15s} .qf-bnl:hover .qf-bnl-cta svg{transform:translateX(3px)}
+/* Service banners: a big glassy icon instead of the 2×2 product grid (services have no photo grid) */
+.qf-svcbnl .qf-svcicon{margin:20px 0 auto;width:66px;height:66px;border-radius:18px;background:rgba(255,255,255,.16);display:grid;place-items:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.28)}
+.qf-svcbnl .qf-svcicon svg{width:32px;height:32px}
+.qf-bnl-head h3{text-shadow:0 1px 10px rgba(0,0,0,.18)}
+@media(max-width:560px){.qf-bnl{flex-basis:80vw}}
+/* Desktop: exactly 4 banners fit the row (aligned to the page container / cart pill), the rest on
+   horizontal scroll — NO wrap, no half-cut card. founder 2026-09-19. Mobile keeps the wider swipe. */
+@media(min-width:820px){.qf-banners{margin:26px 0 8px;padding:0 0 10px}.qf-bnl{flex:0 0 calc(25% - 12px)}}
+.qf-bulk{flex:none;display:inline-flex;align-items:center;gap:7px;padding:8px 15px;font-size:13px;font-weight:800;color:#17294C;background:var(--gold);border:1px solid #E79A2A;border-radius:9px;white-space:nowrap;box-shadow:0 2px 9px rgba(242,169,59,.38)}
+.qf-bulk:hover{background:#F4B657;box-shadow:0 3px 13px rgba(242,169,59,.52)} .qf-bulk svg{color:#17294C;flex:none} .qf-bulk-s{display:none}
+.qf-navcart{position:relative;flex:none;display:inline-flex;align-items:center;gap:7px;padding:8px 16px;font-size:13.5px;font-weight:800;color:#fff;background:var(--navy);border-radius:9px;white-space:nowrap}
+.qf-navcart:hover{background:var(--navy-deep)} .qf-navcart svg{flex:none}
+.qf-navdot{background:var(--gold);color:#20160A;font-size:10.5px;font-weight:800;min-width:19px;height:19px;padding:0 5px;border-radius:10px;display:inline-grid;place-items:center}
+.qf-help{display:block;background:linear-gradient(180deg,var(--sky),#E6EEFA)}
+.qf-help-in{display:flex;align-items:center;gap:15px;padding:15px 22px}
+.qf-help-ic{width:44px;height:44px;border-radius:12px;background:var(--surface);color:var(--navy);display:grid;place-items:center;flex:none;box-shadow:var(--sh-sm)}
+.qf-help-tx{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+.qf-help-tx b{font-size:15px;font-weight:800;color:var(--ink)} .qf-help-tx small{font-size:12.5px;color:var(--muted)}
+.qf-help-cta{margin-left:auto;display:inline-flex;align-items:center;gap:7px;background:var(--gold);color:#20160A;font-weight:800;font-size:13.5px;padding:11px 17px;border-radius:10px;white-space:nowrap;box-shadow:0 2px 10px rgba(242,169,59,.4);transition:transform .13s,box-shadow .2s}
+.qf-help-cta svg{flex:none;transition:transform .15s}
+.qf-help:hover .qf-help-cta{transform:translateY(-1px);box-shadow:0 5px 16px rgba(242,169,59,.55)} .qf-help:hover .qf-help-cta svg{transform:translateX(3px)}
+@media(max-width:560px){.qf-help-tx small{display:none} .qf-help-cta{padding:10px 14px}}
+main.qf-wrap{padding:26px 22px 10px}
+.qf-hero{position:relative;background:linear-gradient(115deg,#12296A,#16357C 52%,#1B429B);border-radius:22px;overflow:hidden;color:#EAF1FF;min-height:330px;display:grid;grid-template-columns:1fr 1fr}
+.qf-copy{padding:46px 44px;align-self:center;position:relative;z-index:2} .qf-copy .qf-eyebrow{color:var(--gold)}
+.qf-hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(34px,4.6vw,52px);line-height:1.02;letter-spacing:-.02em;color:#fff;margin:14px 0 12px}
+.qf-hero h1 em{font-style:italic;color:var(--gold)} .qf-copy p{color:#C4D4F3;font-size:16px;max-width:38ch;margin-bottom:24px}
+.qf-shopbtn{display:inline-flex;align-items:center;gap:9px;background:var(--gold);color:#20160A;font-weight:800;font-size:15px;padding:14px 24px;border-radius:10px;box-shadow:0 10px 26px rgba(242,169,59,.4)}
+.qf-art{position:relative} .qf-art svg{position:absolute;inset:0;width:100%;height:100%}
+.qf-tag{position:absolute;right:34px;bottom:28px;z-index:3;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700} .qf-tag svg{color:var(--gold)}
+.qf-shead{display:flex;align-items:center;justify-content:space-between;margin:44px 0 20px;gap:16px}
+.qf-label{display:inline-flex;align-items:center;gap:11px}
+.qf-label b{background:var(--ink);color:var(--surface);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:8px 14px;border-radius:7px}
+.qf-label span{font-family:var(--serif);font-weight:600;font-size:22px;color:var(--ink)} .qf-subhead{font-size:13px;color:var(--muted)}
+.qf-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.qf-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--sh-sm);transition:transform .14s,box-shadow .22s;display:flex;flex-direction:column}
+.qf-card:hover{transform:translateY(-4px);box-shadow:var(--sh-md)}
+/* Square image box via the padding-ratio hack (works in EVERY browser/WebView, unlike aspect-ratio which
+   older Android WebViews ignore — that was letting tall photos stretch the card and overlap the text). */
+.qf-shot{position:relative;background:#fff;border-bottom:1px solid var(--line);overflow:hidden}
+.qf-shot::before{content:"";display:block;padding-top:100%}
+.qf-shot-img,.qf-shot-ph{position:absolute;top:0;left:0;width:100%;height:100%}
+.qf-shot-img{object-fit:cover} .qf-shot-ph{display:flex;align-items:center;justify-content:center;color:#B7C2D4}
+.qf-cbody{padding:13px 14px 15px;flex:1;display:flex;flex-direction:column}
+.qf-ctitle{font-size:12.5px;font-weight:600;line-height:1.32;color:var(--ink);margin:2px 0 8px;min-height:2.5em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.qf-deliv{display:flex;align-items:center;gap:6px;margin:0 0 9px;font-size:11.5px;line-height:1.3;color:var(--muted)}
+.qf-deliv svg{flex:none;color:var(--trust)} .qf-deliv b{color:var(--ink);font-weight:700}
+.qf-cfoot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.qf-price{font-size:15px;font-weight:800;color:var(--ink);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap} .qf-cur{font-size:11px;font-weight:700;color:var(--muted);margin-right:2px}
+.qf-pricewrap{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;min-width:0}
+.qf-sale{color:#b42318} .qf-was{font-size:12px;font-weight:600;color:var(--muted);text-decoration:line-through}
+.qf-off{font-size:11px;font-weight:800;color:#fff;background:#b42318;border-radius:6px;padding:1px 6px;white-space:nowrap}
+.qf-add{flex:none;background:var(--navy);color:#fff;border:none;width:34px;height:34px;border-radius:9px;display:grid;place-items:center} .qf-add:hover{background:var(--navy-deep)}
+.qf-added{background:var(--trust)}
+.qf-empty{text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:54px 24px;color:var(--muted);box-shadow:var(--sh-sm)}
+.qf-empty svg{color:#B7C2D4;margin-bottom:12px} .qf-empty p{font-size:15px;margin-bottom:10px} .qf-plink{font-weight:700;color:var(--navy)}
+.qf-pagination{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;margin:32px auto 4px;padding:0 16px}
+.qf-pg{display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;padding:0 13px;border-radius:999px;background:var(--surface);color:var(--navy);font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--line);box-shadow:var(--sh-sm)}
+.qf-pg:hover{background:var(--sky)} .qf-pg.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.qf-pg.qf-parrow{font-weight:700} .qf-pg.off{opacity:.4;pointer-events:none;box-shadow:none}
+.qf-pgap{color:var(--muted);padding:0 2px} .qf-pginfo{flex-basis:100%;text-align:center;color:var(--muted);font-size:12.5px;margin-top:4px}
+.qf-promos{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:44px}
+.qf-promo{border-radius:20px;padding:34px;min-height:160px;display:flex;flex-direction:column;justify-content:center}
+.qf-promo h3{font-family:var(--serif);font-weight:600;font-size:25px;line-height:1.1;letter-spacing:-.01em;max-width:16ch;margin:10px 0 14px}
+.qf-promo .qf-plink{display:inline-flex;align-items:center;gap:7px;font-weight:800;font-size:14px}
+.qf-gold{background:linear-gradient(120deg,#F7C15E,#E7961F);color:#2A1B06} .qf-gold .qf-eyebrow{color:#7A4E0E}
+.qf-navy{background:linear-gradient(120deg,#16357C,#0E1E4A);color:#EAF1FF} .qf-navy .qf-eyebrow{color:var(--gold)}
+.qf-footer{background:var(--surface);border-top:1px solid var(--line);margin-top:56px;padding:48px 0 0}
+.qf-fgrid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1.1fr;gap:30px;padding-bottom:34px}
+.qf-fcol h4{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:12px}
+.qf-fcol a{display:block;font-size:13.5px;color:var(--muted);margin:9px 0} .qf-fcol a:hover{color:var(--navy)}
+.qf-flogo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;font-size:22px;color:var(--ink);margin-bottom:12px} .qf-flogo svg{width:30px;height:30px}
+.qf-fabout p{font-size:13.5px;color:var(--muted);max-width:32ch;line-height:1.55}
+.qf-fbar{border-top:1px solid var(--line);padding:18px 0;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
+.qf-flegal{display:flex;flex-wrap:wrap;gap:8px 16px} .qf-flegal a{color:var(--muted)} .qf-flegal a:hover{color:var(--navy)}
+.qf-fpays{display:flex;gap:8px} .qf-fpays span{border:1px solid var(--line);border-radius:6px;padding:3px 9px;font-size:10px;font-weight:800;color:var(--muted);letter-spacing:.04em}
+@media(max-width:940px){.qf-grid{grid-template-columns:repeat(3,1fr)}.qf-hero{grid-template-columns:1fr}.qf-art{display:none}.qf-logorow .qf-wrap{height:auto;flex-wrap:wrap;gap:14px;padding-top:14px;padding-bottom:14px}.qf-actions{order:1;margin-left:auto}.qf-search{order:2;flex-basis:100%;min-width:0;margin:0}.qf-catpick select{max-width:120px}.qf-promos{grid-template-columns:1fr}.qf-fgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.qf-grid{grid-template-columns:1fr 1fr}.qf-benefits .qf-wrap{grid-template-columns:1fr}.qf-fgrid{grid-template-columns:1fr}
+  /* Show the FULL pill label on the mobile app, wrapped (founder 2026-09-22) — same as the Offer pill.
+     Narrow + compact so both pills AND the cart fit the row without clipping. */
+  .qf-bulk{white-space:normal;line-height:1.1;max-width:104px}
+  .qf-pillnav .qf-bulk{padding:6px 10px;font-size:11px;gap:5px}
+  .qf-pillnav .qf-wrap{gap:7px}.qf-pillnav .qf-navcart{padding:7px 11px;font-size:12px}
+  /* Narrow 2-up cards: shrink the price + gaps so the add/remove button always fits (was clipped). */
+  .qf-cbody{padding:12px 12px 14px}.qf-cfoot{gap:6px}.qf-price{font-size:14px}}
+@media(max-width:400px){.qf-acct span{display:none}.qf-acct{padding:0;width:44px;justify-content:center}.qf-word span{display:none}}
+
+.qf-pageh1{font-size:clamp(19px,3.2vw,25px);font-weight:700;letter-spacing:-.015em;line-height:1.2;color:var(--ink);margin:4px 0 14px}
+.cat-intro{max-width:840px;margin:2px 0 18px}
+.cat-intro p{color:#35456A;font-size:14.5px;line-height:1.72;margin:0}
+.cat-points{list-style:none;margin:4px 0 2px;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 26px;max-width:760px}
+.cat-points li{position:relative;padding-left:23px;color:#35456A;font-size:14px;line-height:1.45}
+.cat-points li::before{content:"\2713";position:absolute;left:0;top:0;color:#E0912B;font-weight:700}
+@media(max-width:560px){.cat-points{grid-template-columns:1fr;gap:8px}}
+.cat-guide{margin-top:10px!important}.cat-guide a{color:var(--navy);font-weight:600;font-size:14px;text-decoration:none}.cat-guide a:hover{text-decoration:underline}
+.cat-faq{border-top:1px solid var(--line);margin:34px 0 10px;padding-top:28px;max-width:840px}
+.cat-faq h2{font-family:var(--serif);font-weight:600;font-size:20px;color:var(--ink);margin:0 0 14px}
+.cat-q{border:1px solid var(--line);border-radius:12px;padding:0 16px;margin-bottom:10px;background:var(--surface)}
+.cat-q summary{cursor:pointer;font-weight:600;font-size:14.5px;color:var(--ink);padding:14px 0;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.cat-q summary::-webkit-details-marker{display:none}
+.cat-q summary::after{content:"+";font-size:21px;line-height:1;color:var(--muted);font-weight:400}
+.cat-q[open] summary::after{content:"\2212"}
+.cat-q p{color:#35456A;font-size:14px;line-height:1.66;margin:0 0 15px}

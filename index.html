@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hotels &amp; Resorts — Qamru Travel (replica)</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.qf-meta{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:2px 0 8px}
+.qf-rate{background:var(--trust);color:#fff;font-weight:800;font-size:11.5px;border-radius:6px;padding:1px 6px}
+.qf-night{font-size:11px;color:var(--muted);display:block;font-weight:600}
+.qf-tools{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 16px}
+.qf-tools select,.qf-tools input{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px;font:inherit;font-size:14px}
+.qf-tools input{flex:1;min-width:200px}
+.qf-shot::before{padding-top:75%}
+.qf-card .qf-ctitle{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#modal{position:fixed;inset:0;background:rgba(14,30,74,.6);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+#modal.on{display:flex}
+.mbox{background:#fff;border-radius:18px;max-width:760px;width:100%;max-height:92vh;overflow:auto;box-shadow:var(--sh-md)}
+.mgal{display:grid;grid-template-columns:2fr 1fr;gap:4px}
+.mgal img{width:100%;height:100%;object-fit:cover;display:block}
+.mgal .big{grid-row:span 3;min-height:300px}
+.mgal .sm{height:100px}
+.mbody{padding:20px}
+.mbody h2{font-family:var(--serif);font-size:26px;margin-bottom:6px}
+.mclose{float:right;border:0;background:var(--sky);border-radius:99px;width:34px;height:34px;font-size:20px}
+.mprice{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--navy);margin:14px 0}
+.empty{padding:40px;text-align:center;color:var(--muted)}
+</style></head><body>
+<div class="qf-topbar"><div class="qf-wrap">
+ <span class="qf-tl">Halal-friendly hotels &amp; resorts · worldwide</span>
+ <span class="qf-tr"><label class="qf-ccy"><select id="ccy" aria-label="Display currency"><option>USD</option><option>PKR</option><option>MYR</option><option>GBP</option><option>EUR</option><option>AED</option><option>SAR</option></select></label></span>
+</div></div>
+<header class="qf-logorow"><div class="qf-wrap">
+ <a class="qf-logo" href="./"><span class="qf-mark"><svg viewBox="0 0 100 100" width="34" height="34"><defs><linearGradient id="qfmk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DCE9F8"/><stop offset="1" stop-color="#8FB4DE"/></linearGradient></defs><rect x="2" y="2" width="96" height="96" rx="26" fill="url(#qfmk)"/><circle cx="50" cy="52" r="26" fill="none" stroke="#16294A" stroke-width="9"/><circle cx="50" cy="52" r="7" fill="#16294A"/><circle cx="73" cy="30" r="10" fill="#F0A63A" stroke="#16294A" stroke-width="4"/></svg></span><span class="qf-word"><b>Qamru</b><span>Travel</span></span></a>
+ <form class="qf-search" onsubmit="return false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg><input id="q" type="search" placeholder="Search hotels, resorts, cities…" autocomplete="off"></form>
+</div></header>
+<a class="qf-salebar" href="#catalog"><span class="qf-sale-shine"></span><span class="qf-wrap qf-sale-in">
+ <span class="qf-sale-eyebrow"><span>Hotels&nbsp;&amp;&nbsp;Resorts</span></span>
+ <span class="qf-sale-head"><b class="qf-sale-pct" id="cnt"></b><span class="qf-sale-note">halal-friendly stays, prices per night</span></span>
+ <span class="qf-sale-cta">Browse stays</span></span></a>
+<main class="qf-wrap" style="padding-top:24px;padding-bottom:48px">
+ <div id="catalog"></div>
+ <div class="qf-shead"><span class="qf-label"><b>Hotels &amp; Resorts</b><span>Handpicked stays</span></span><span class="qf-subhead">Hotels, resorts and villas with halal-friendly facilities</span></div>
+ <div class="qf-tools"><select id="country"><option value="">All countries</option></select>
+  <select id="sort"><option value="">Featured</option><option value="pa">Price: low to high</option><option value="pd">Price: high to low</option><option value="r">Top rated</option></select></div>
+ <div class="qf-grid" id="grid"></div>
+</main>
+<div id="modal"><div class="mbox" id="mbox"></div></div>
+<script src="hotels.js"></script>
+<script>
+var RATE={USD:1,PKR:280,MYR:4.7,GBP:.78,EUR:.92,AED:3.67,SAR:3.75},H=window.HOTELS;
+var $=function(i){return document.getElementById(i)};
+function fmt(usd){var c=$('ccy').value;return c+' '+Math.round(usd*RATE[c]).toLocaleString('en-US')}
+function esc(s){return String(s||'').replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+[...new Set(H.map(function(h){return h.c}).filter(Boolean))].sort().forEach(function(c){$('country').insertAdjacentHTML('beforeend','<option>'+esc(c)+'</option>')});
+function list(){
+  var q=$('q').value.toLowerCase(),c=$('country').value,s=$('sort').value;
+  var r=H.filter(function(h){return(!c||h.c===c)&&(!q||(h.n+' '+h.l+' '+h.c).toLowerCase().indexOf(q)>-1)});
+  if(s==='pa')r.sort(function(a,b){return a.p-b.p});if(s==='pd')r.sort(function(a,b){return b.p-a.p});
+  if(s==='r')r.sort(function(a,b){return(b.r||0)-(a.r||0)});
+  return r}
+function render(){
+  var r=list();$('cnt').textContent=r.length+' stays';
+  $('grid').innerHTML=r.length?r.map(function(h){return '<article class="qf-card"><a class="qf-shot" href="#" data-id="'+h.id+'" style="display:block"><img class="qf-shot-img" src="'+h.i[0]+'" alt="'+esc(h.n)+'" loading="lazy"></a><div class="qf-cbody"><a class="qf-ctitle" href="#" data-id="'+h.id+'">'+esc(h.n)+'</a><div class="qf-meta">'+(h.r?'<span class="qf-rate">'+h.r+'</span>':'')+'<span>'+esc((h.l?h.l.split(',').pop().trim()+', ':'')+h.c)+'</span></div><div class="qf-cfoot"><div class="qf-pricewrap"><span class="qf-price">'+fmt(h.p)+'<span class="qf-night">per night, from</span></span></div></div></div></article>'}).join(''):'<div class="empty" style="grid-column:1/-1">No hotels found.</div>'}
+function open_(id){
+  var h=H.filter(function(x){return x.id===id})[0],g=h.i;
+  $('mbox').innerHTML='<div class="mgal"><img class="big" src="'+g[0]+'" alt="">'+g.slice(1).map(function(s){return '<img class="sm" src="'+s+'" alt="">'}).join('')+'</div><div class="mbody"><button class="mclose" onclick="document.getElementById(\'modal\').classList.remove(\'on\')">×</button><h2>'+esc(h.n)+'</h2><div class="qf-meta">'+(h.r?'<span class="qf-rate">'+h.r+'</span><span>'+h.rv+' reviews</span>':'')+'<span>'+esc(h.l)+', '+esc(h.c)+'</span></div><p>'+esc(h.d)+'</p><div class="mprice">'+fmt(h.p)+' <span class="qf-night" style="display:inline">/ night, from</span></div></div>';
+  $('modal').classList.add('on')}
+$('grid').addEventListener('click',function(e){var a=e.target.closest('[data-id]');if(a){e.preventDefault();open_(a.dataset.id)}});
+$('modal').addEventListener('click',function(e){if(e.target.id==='modal')$('modal').classList.remove('on')});
+['q','country','sort','ccy'].forEach(function(i){$(i).addEventListener('input',render)});
+render();
+</script></body></html>
