@@ -40,7 +40,7 @@
 </style></head><body>
 <div class="qf-topbar"><div class="qf-wrap">
  <span class="qf-tl">Halal-friendly hotels &amp; resorts · worldwide</span>
- <span class="qf-tr"><a href="#" id="mybk">My bookings</a><label class="qf-ccy"><select id="ccy" aria-label="Display currency"><option>USD</option><option>PKR</option><option>MYR</option><option>GBP</option><option>EUR</option><option>AED</option><option>SAR</option></select></label></span>
+ <span class="qf-tr"><a href="#" id="mybk">My bookings</a><label class="qf-ccy"><select id="ccy" aria-label="Display currency"><option>PKR</option><option>USD</option><option>MYR</option><option>GBP</option><option>EUR</option><option>AED</option><option>SAR</option></select></label></span>
 </div></div>
 <header class="qf-logorow"><div class="qf-wrap">
  <a class="qf-logo" href="./"><span class="qf-mark"><svg viewBox="0 0 100 100" width="34" height="34"><defs><linearGradient id="qfmk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DCE9F8"/><stop offset="1" stop-color="#8FB4DE"/></linearGradient></defs><rect x="2" y="2" width="96" height="96" rx="26" fill="url(#qfmk)"/><circle cx="50" cy="52" r="26" fill="none" stroke="#16294A" stroke-width="9"/><circle cx="50" cy="52" r="7" fill="#16294A"/><circle cx="73" cy="30" r="10" fill="#F0A63A" stroke="#16294A" stroke-width="4"/></svg></span><span class="qf-word"><b>Qamru</b><span>Travel</span></span></a>
@@ -61,6 +61,8 @@
 <script src="hotels.js"></script>
 <script>
 var RATE={USD:1,PKR:280,MYR:4.7,GBP:.78,EUR:.92,AED:3.67,SAR:3.75},H=window.HOTELS;
+var CN={BR:'Brazil',TR:'Turkey',MV:'Maldives',MA:'Morocco',SA:'Saudi Arabia',ES:'Spain',CA:'Canada',EG:'Egypt',GR:'Greece',PT:'Portugal',ID:'Indonesia',MX:'Mexico',OM:'Oman',GB:'United Kingdom',MT:'Malta',FR:'France',TH:'Thailand',BA:'Bosnia and Herzegovina',QA:'Qatar',IT:'Italy',MY:'Malaysia',CH:'Switzerland',AE:'United Arab Emirates'};
+H.forEach(function(h){h.c=CN[h.c]||h.c});
 var $=function(i){return document.getElementById(i)};
 function fmt(usd){var c=$('ccy').value;return c+' '+Math.round(usd*RATE[c]).toLocaleString('en-US')}
 function esc(s){return String(s||'').replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
