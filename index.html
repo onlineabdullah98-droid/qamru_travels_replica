@@ -17,7 +17,7 @@
 .mbox{background:#fff;border-radius:18px;max-width:760px;width:100%;max-height:92vh;overflow:auto;box-shadow:var(--sh-md)}
 .mgal{display:grid;grid-template-columns:2fr 1fr;gap:4px}
 .mgal img{width:100%;height:100%;object-fit:cover;display:block}
-.mgal .big{grid-row:span 3;min-height:300px}
+.mgal .big{grid-row:span 3;min-height:300px}.mgal.one{grid-template-columns:1fr}.mgal.one .big{max-height:380px}
 .mgal .sm{height:100px}
 .mbody{padding:20px}
 .mbody h2{font-family:var(--serif);font-size:26px;margin-bottom:6px}
@@ -39,7 +39,7 @@
 @media(max-width:560px){.bf{grid-template-columns:1fr}.mgal{grid-template-columns:1fr}.mgal .big{grid-row:auto;min-height:200px}.mgal .sm{display:none}}
 </style></head><body>
 <div class="qf-topbar"><div class="qf-wrap">
- <span class="qf-tl">Halal-friendly hotels &amp; resorts · worldwide</span>
+ <span class="qf-tl">Hotels &amp; resorts · worldwide</span>
  <span class="qf-tr"><a href="#" id="mybk">My bookings</a><label class="qf-ccy"><select id="ccy" aria-label="Display currency"><option>PKR</option><option>USD</option><option>MYR</option><option>GBP</option><option>EUR</option><option>AED</option><option>SAR</option></select></label></span>
 </div></div>
 <header class="qf-logorow"><div class="qf-wrap">
@@ -48,11 +48,11 @@
 </div></header>
 <a class="qf-salebar" href="#catalog"><span class="qf-sale-shine"></span><span class="qf-wrap qf-sale-in">
  <span class="qf-sale-eyebrow"><span>Hotels&nbsp;&amp;&nbsp;Resorts</span></span>
- <span class="qf-sale-head"><b class="qf-sale-pct" id="cnt"></b><span class="qf-sale-note">halal-friendly stays, prices per night</span></span>
+ <span class="qf-sale-head"><b class="qf-sale-pct" id="cnt"></b><span class="qf-sale-note">hotels &amp; resorts, prices per night</span></span>
  <span class="qf-sale-cta">Browse stays</span></span></a>
 <main class="qf-wrap" style="padding-top:24px;padding-bottom:48px">
  <div id="catalog"></div>
- <div class="qf-shead"><span class="qf-label"><b>Hotels &amp; Resorts</b><span>Handpicked stays</span></span><span class="qf-subhead">Hotels, resorts and villas with halal-friendly facilities</span></div>
+ <div class="qf-shead"><span class="qf-label"><b>Hotels &amp; Resorts</b><span>Handpicked stays</span></span><span class="qf-subhead">Hotels and resorts with live per-night prices</span></div>
  <div class="qf-tools"><select id="country"><option value="">All countries</option></select>
   <select id="sort"><option value="">Featured</option><option value="pa">Price: low to high</option><option value="pd">Price: high to low</option><option value="r">Top rated</option></select></div>
  <div class="qf-grid" id="grid"></div>
@@ -82,7 +82,7 @@ function nights(){return Math.max(1,Math.round((new Date(B.out)-new Date(B.in))/
 function calc(){var base=B.h.p*nights()*B.rooms;return{base:base,tot:base}}
 function steps(n){return '<div class="bstep">'+['Stay','Guest','Payment','Done'].map(function(t,i){return '<span class="'+(i+1===n?'on':'')+'">'+(i+1)+'. '+t+'</span>'}).join('')+'</div>'}
 function summ(){var c=calc();return '<div class="bsum"><div><span>'+fmt(B.h.p)+' × '+B.rooms+' room(s) × '+nights()+' night(s)</span><span>'+fmt(c.base)+'</span></div><div class="tot"><span>Total</span><span>'+fmt(c.tot)+'</span></div></div>'}
-function shell(n,html,h){var g=h.i;$('mbox').innerHTML='<div class="mgal"><img class="big" src="'+g[0]+'" alt="">'+g.slice(1).map(function(s){return '<img class="sm" src="'+s+'" alt="">'}).join('')+'</div><div class="mbody"><button class="mclose" onclick="closeM()">×</button><h2>'+esc(h.n)+'</h2><div class="qf-meta">'+(h.r?'<span class="qf-rate">'+h.r+'</span><span>'+h.rv+' reviews</span>':'')+'<span>'+esc(h.l)+', '+esc(h.c)+'</span></div>'+steps(n)+html+'</div>';$('mbox').scrollTop=0}
+function shell(n,html,h){var g=h.i;$('mbox').innerHTML='<div class="mgal'+(g.length<2?' one':'')+'"><img class="big" src="'+g[0]+'" alt="">'+g.slice(1).map(function(s){return '<img class="sm" src="'+s+'" alt="">'}).join('')+'</div><div class="mbody"><button class="mclose" onclick="closeM()">×</button><h2>'+esc(h.n)+'</h2><div class="qf-meta">'+(h.r?'<span class="qf-rate">'+h.r+'</span><span>'+h.rv+' reviews</span>':'')+'<span>'+esc(h.l)+', '+esc(h.c)+'</span></div>'+steps(n)+html+'</div>';$('mbox').scrollTop=0}
 function closeM(){$('modal').classList.remove('on')}
 function open_(id){var h=H.filter(function(x){return x.id===id})[0];B={h:h,in:today(7),out:today(9),rooms:1,adults:2,pay:'hotel'};step1();$('modal').classList.add('on')}
 function step1(){var h=B.h;shell(1,'<p>'+esc(h.d)+'</p><div class="mprice">'+fmt(h.p)+' <span class="qf-night" style="display:inline">/ night, from</span></div><div class="bf"><label>Check-in<input type="date" id="bin" min="'+today(0)+'" value="'+B.in+'"></label><label>Check-out<input type="date" id="bout" value="'+B.out+'"></label><label>Rooms<select id="brooms">'+[1,2,3,4].map(function(n){return '<option'+(n===B.rooms?' selected':'')+'>'+n+'</option>'}).join('')+'</select></label><label class="full">Adults<select id="badults">'+[1,2,3,4,5,6].map(function(n){return '<option'+(n===B.adults?' selected':'')+'>'+n+'</option>'}).join('')+'</select></label></div><div id="s1sum"></div><button class="bbtn" id="n1">Continue</button>',h);
